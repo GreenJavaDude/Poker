@@ -3,6 +3,7 @@ package com.greenjavadude.Poker.Server;
 import java.awt.BorderLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.net.ServerSocket;
 import java.util.Stack;
 
 import javax.swing.*;
@@ -12,7 +13,7 @@ public class Server extends JFrame implements Runnable{
 	
 	public Stack<Person> people;
 	public Game game;
-	public Connector connector;
+	
 	private boolean started;
 	private boolean running;
 	private boolean stopped;
@@ -22,7 +23,8 @@ public class Server extends JFrame implements Runnable{
 	private JButton stopButton;
 	private JPanel panel;
 	
-	private Thread hook;
+	private ServerSocket socket;
+	public Connector connector;
 	
 	public Server() {
 		super("Server Side Poker - Made by Maxwell");
@@ -41,7 +43,7 @@ public class Server extends JFrame implements Runnable{
 		startButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent a) {
 				if(!started) {
-					text.append("The game has started.\n");
+					display("The game has started.");
 					started = true;
 				}
 			}
@@ -66,20 +68,19 @@ public class Server extends JFrame implements Runnable{
 		setLocationRelativeTo(null);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
-		hook = new Thread(new Runnable() {
+		Runtime.getRuntime().addShutdownHook(new Thread(new Runnable() {
 			public void run() {
 				stopped = true;
 				stop();
 			}
-		});
-		
-		Runtime.getRuntime().addShutdownHook(hook);
+		}, "Shutdown Thread"));
 	}
 	
 	public void run() {
 		try {
+			socket = new ServerSocket(7777, 20);
 			connector.start();
-			text.append("Now open for connections.\n");
+			display("Now open for connections.");
 			
 			while(!started) {
 				Thread.sleep(100);
@@ -102,12 +103,25 @@ public class Server extends JFrame implements Runnable{
 	
 	public void stop() {
 		//disconnect
-		
-		System.out.println("T1");
+		for(Person p : people) {
+			p.stop();
+		}
 		
 		if(!stopped) {
 			System.exit(0);
 		}
+	}
+	
+	public void display(String s) {
+		text.append(s + "\n");
+	}
+	
+	public ServerSocket getServerSocket() {
+		return socket;
+	}
+	
+	public Stack<Person> getPeople(){
+		return people;
 	}
 	
 	public static void main(String[] args) {

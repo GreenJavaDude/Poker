@@ -1,5 +1,7 @@
 package com.greenjavadude.Poker.Server;
 
+import java.net.Socket;
+
 public class Connector implements Runnable{
 	private boolean running;
 	private Server server;
@@ -12,7 +14,15 @@ public class Connector implements Runnable{
 	public void run() {
 		try {
 			while(running) {
-				//tries to connect people to Person and the server's people stack
+				try {
+					Socket socket = server.getServerSocket().accept();
+					//now connected
+					Person p = new Person(socket, server);
+					server.getPeople().push(p);
+					server.display("Someone Successfully Connected.");
+				}catch(Exception e) {
+					
+				}
 			}
 		}catch(Exception e) {
 			e.printStackTrace();

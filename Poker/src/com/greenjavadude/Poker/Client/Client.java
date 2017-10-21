@@ -8,10 +8,14 @@ public class Client extends JFrame implements Runnable{
 	
 	private static final long serialVersionUID = -4432581809458106520L;
 	
+	private boolean stopped;
+	
 	private JTextArea text;
 	
 	public Client() {
 		super("Poker - Made by Maxwell");
+		
+		stopped = false;
 		
 		text = new JTextArea();
 		text.setEditable(false);
@@ -25,9 +29,10 @@ public class Client extends JFrame implements Runnable{
 		
 		Runtime.getRuntime().addShutdownHook(new Thread(new Runnable() {
 	        public void run() {
+	        	stopped = true;
 	            stop();
 	        }
-	    }, "Shutdown-thread"));
+	    }, "Shutdown Thread"));
 	}
 
 	public void run() {
@@ -40,6 +45,8 @@ public class Client extends JFrame implements Runnable{
 		}catch(Exception e) {
 			e.printStackTrace();
 		}
+		
+		System.exit(0);
 	}
 	
 	public void start() {
@@ -49,7 +56,11 @@ public class Client extends JFrame implements Runnable{
 	public void stop() {
 		//disconnect
 		
-		System.exit(0);
+		System.out.println("T1");
+		
+		if(!stopped) {
+			System.exit(0);
+		}
 	}
 	
 	public static void main(String[] args) {
