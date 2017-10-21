@@ -5,7 +5,7 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
 
-import com.greenjavadude.Poker.common.TurnReq;
+import com.greenjavadude.Poker.Common.TurnReq;
 
 public class Person implements Runnable{
 	private Socket socket;
