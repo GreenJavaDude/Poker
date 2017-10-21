@@ -102,7 +102,6 @@ public class Server extends JFrame implements Runnable{
 	}
 	
 	public void stop() {
-		//disconnect
 		for(Person p : people) {
 			p.stop();
 		}

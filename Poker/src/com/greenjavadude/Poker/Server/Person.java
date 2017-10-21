@@ -49,6 +49,7 @@ public class Person implements Runnable{
 	}
 	
 	public void sendTurn(TurnReq t) {
+		//do properly
 		try {
 			ous.writeObject(t);
 		}catch(Exception e) {
