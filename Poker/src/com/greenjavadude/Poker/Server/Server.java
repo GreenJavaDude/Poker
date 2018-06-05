@@ -8,7 +8,7 @@ import java.util.Stack;
 
 import javax.swing.*;
 
-public class Server extends JFrame implements Runnable{
+public class Server extends JFrame {
 	private static final long serialVersionUID = -6598726644206368068L;
 	
 	public Stack<Person> people;
@@ -16,7 +16,6 @@ public class Server extends JFrame implements Runnable{
 	
 	private boolean started;
 	private boolean running;
-	private boolean stopped;
 	
 	public JTextArea text;
 	private JButton startButton;
@@ -34,7 +33,6 @@ public class Server extends JFrame implements Runnable{
 		connector = new Connector(this);
 		started = false;
 		running = true;
-		stopped = false;
 		
 		text = new JTextArea();
 		text.setEditable(false);
@@ -70,13 +68,12 @@ public class Server extends JFrame implements Runnable{
 		
 		Runtime.getRuntime().addShutdownHook(new Thread(new Runnable() {
 			public void run() {
-				stopped = true;
 				stop();
 			}
 		}, "Shutdown Thread"));
 	}
 	
-	public void run() {
+	public void start() {
 		try {
 			socket = new ServerSocket(7777, 20);
 			connector.start();
@@ -97,17 +94,9 @@ public class Server extends JFrame implements Runnable{
 		System.exit(0);
 	}
 	
-	public void start() {
-		new Thread(this).start();
-	}
-	
 	public void stop() {
 		for(Person p : people) {
 			p.stop();
-		}
-		
-		if(!stopped) {
-			System.exit(0);
 		}
 	}
 	

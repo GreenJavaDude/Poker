@@ -4,18 +4,14 @@ import java.awt.BorderLayout;
 
 import javax.swing.*;
 
-public class Client extends JFrame implements Runnable{
+public class Client extends JFrame {
 	
 	private static final long serialVersionUID = -4432581809458106520L;
-	
-	private boolean stopped;
 	
 	private JTextArea text;
 	
 	public Client() {
 		super("Poker - Made by Maxwell");
-		
-		stopped = false;
 		
 		text = new JTextArea();
 		text.setEditable(false);
@@ -29,13 +25,12 @@ public class Client extends JFrame implements Runnable{
 		
 		Runtime.getRuntime().addShutdownHook(new Thread(new Runnable() {
 	        public void run() {
-	        	stopped = true;
 	            stop();
 	        }
 	    }, "Shutdown Thread"));
 	}
-
-	public void run() {
+	
+	public void start() {
 		try {
 			//try to connect
 			
@@ -49,18 +44,8 @@ public class Client extends JFrame implements Runnable{
 		System.exit(0);
 	}
 	
-	public void start() {
-		new Thread(this).start();
-	}
-	
 	public void stop() {
 		//disconnect
-		
-		System.out.println("T1");
-		
-		if(!stopped) {
-			System.exit(0);
-		}
 	}
 	
 	public static void main(String[] args) {
