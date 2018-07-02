@@ -1,4 +1,4 @@
-package com.greenjavadude.Poker.Server;
+package com.greenjavadude.Poker.test.Server;
 
 import java.awt.BorderLayout;
 import java.awt.event.ActionEvent;

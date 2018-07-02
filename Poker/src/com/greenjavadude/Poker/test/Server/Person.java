@@ -1,11 +1,11 @@
-package com.greenjavadude.Poker.Server;
+package com.greenjavadude.Poker.test.Server;
 
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
 
-import com.greenjavadude.Poker.Common.Data;
+import com.greenjavadude.Poker.test.Common.Data;
 
 public class Person implements Runnable{
 	private Socket socket;

@@ -1,4 +1,4 @@
-package com.greenjavadude.Poker.Client;
+package com.greenjavadude.Poker.test.Client;
 
 import java.awt.BorderLayout;
 

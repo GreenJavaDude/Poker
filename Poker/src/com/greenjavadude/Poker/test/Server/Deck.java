@@ -1,4 +1,4 @@
-package com.greenjavadude.Poker.Server;
+package com.greenjavadude.Poker.test.Server;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -15,13 +15,13 @@ public class Deck {
 			}
 		}
 		
-		shuffle();
+		Collections.shuffle(deck);
 	}
-	
+	/*
 	public void shuffle() {
 		Collections.shuffle(deck);
 	}
-	
+	*/
 	public Card drawCard() {
 		return deck.pop();
 	}
